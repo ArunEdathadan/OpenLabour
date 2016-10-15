@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenLabour.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,16 @@ namespace OpenLabour.Controllers
     {
         public ActionResult Index()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var user = db.Users.FirstOrDefault();
+
+            Customer c = new Customer();
+            c.ApplicationUser = user;
+            c.Address = "Edathadan";
+            db.Customer.Add(c);
+            db.SaveChanges();
+
             return View();
         }
 
