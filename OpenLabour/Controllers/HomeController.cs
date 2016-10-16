@@ -13,13 +13,13 @@ namespace OpenLabour.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
 
-            var user = db.Users.FirstOrDefault();
+            //  var user = db.Users.FirstOrDefault();
 
-            Customer c = new Customer();
-            c.ApplicationUser = user;
-            c.Address = "Edathadan";
-            db.Customer.Add(c);
-            db.SaveChanges();
+            //  Customer c = new Customer();
+            //  c.ApplicationUser = user;
+            //  c.Address = "Edathadan";
+            //  db.Customer.Add(c);
+            //   db.SaveChanges();
 
             return View();
         }
