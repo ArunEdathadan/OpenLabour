@@ -10,7 +10,6 @@ namespace OpenLabour.Migrations.ContextA
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            MigrationsDirectory = @"Migrations\ContextA";
         }
 
         protected override void Seed(OpenLabour.Models.ApplicationDbContext context)

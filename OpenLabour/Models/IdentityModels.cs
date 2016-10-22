@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.DynamicData;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace OpenLabour.Models
 {
@@ -20,14 +21,57 @@ namespace OpenLabour.Models
             return userIdentity;
         }
 
+        /// <summary>
+        /// self referencing for multiple password for same account
+        /// </summary>
         public int? ParentUserID { get; set; }
 
-        public virtual Customer Customer { get; set; }
-        public virtual UserImageStore UserImageStore { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
-        public virtual Category Category { get; set; }
+
 
     }
+
+    #region Assets (User)
+    public class UserAssets
+    {
+        [Key]
+        public int UserAssetID { get; set; }
+        public string AssetTitle { get; set; }
+        public string AssetDetails { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public string VehicleNumber { get; set; }
+        public string InstitutionNumber { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public int AssetID { get; set; }
+        public virtual AssetType AssetType { get; set; }
+    }
+
+    public class AssetType
+    {
+        [Key]
+        public int AssetID { get; set; }
+        public string AssectType { get; set; }
+    }
+
+    #endregion
+
+
+    #region Organisation , Institutions or Companies
+    public class OrgInstitutionCompany
+    {
+        [Key]
+        public int OrgInstCompID { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Brief { get; set; }
+        public string Description { get; set; }
+        public string IdentificationNumber { get; set; }
+        public string IdentificationType { get; set; }
+        public bool IsActive { get; set; }
+    }
+    #endregion
 
 
     #region country and areas
@@ -37,8 +81,6 @@ namespace OpenLabour.Models
         public int CountryID { get; set; }
         public string CountryName { get; set; }
         public string Description { get; set; }
-
-        public virtual EventMaster EventMaster { get; set; }
     }
 
     public class State
@@ -49,8 +91,7 @@ namespace OpenLabour.Models
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+        //   public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
     public class City
@@ -61,8 +102,7 @@ namespace OpenLabour.Models
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+        //  public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
     public class Area
@@ -73,8 +113,7 @@ namespace OpenLabour.Models
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+        //  public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
     public class PostOffice
@@ -85,8 +124,7 @@ namespace OpenLabour.Models
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+        //   public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
     public class LocalPlace
@@ -97,10 +135,14 @@ namespace OpenLabour.Models
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+        //  public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
+    public class Address
+    {
+       public City c { get; set; }
+
+    }
 
     #endregion
 
@@ -112,10 +154,11 @@ namespace OpenLabour.Models
         public int CategoryID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string MyProperty { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual EventMaster EventMaster { get; set; }
+
+        public string CreatedByUserID { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
     #endregion
 
@@ -143,19 +186,32 @@ namespace OpenLabour.Models
         public string MetaDescription { get; set; }
 
         public int? ParentID { get; set; }
-        public virtual EventMaster Parent { get; set; }
+        public virtual EventMaster EventMasterParent { get; set; }
 
-        public virtual ApplicationUser CreatedByUser { get; set; }
-        public virtual Category Category { get; set; }
+        public string CreatedByUserID { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
+        public int? CategoryID { get; set; }
+        //   public virtual Category Category { get; set; }
+
+        public int? CityID { get; set; }
         public virtual City City { get; set; }
+
+        public int? StateID { get; set; }
         public virtual State State { get; set; }
+
+        public int? CountryID { get; set; }
         public virtual Country Country { get; set; }
+
+        public int? AreaID { get; set; }
         public virtual Area Area { get; set; }
+
+        public int? PostOfficeID { get; set; }
         public virtual PostOffice PostOffice { get; set; }
+
+        public int? LocalPlaceID { get; set; }
         public virtual LocalPlace LocalPlace { get; set; }
 
-        public virtual CommentMaster CommentMaster { get; set; }
     }
 
     public class CommentMaster
@@ -171,10 +227,10 @@ namespace OpenLabour.Models
         // public int? ParentID { get; set; }
         // public virtual CommentMaster Parent { get; set; }
 
-        public int? EventID { get; set; }
+        public int EventID { get; set; }
         public virtual EventMaster EventMaster { get; set; }
 
-        public string CommentedBy { get; set; }
+        public string CommentedByID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 
@@ -187,22 +243,15 @@ namespace OpenLabour.Models
         public int CommentReplyID { get; set; }
         public string CommentDetail { get; set; }
 
-        public string CommentedBy { get; set; }
+        public string CommentedByID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         public int? ParentID { get; set; }
-        public virtual CommentReplyMaster Parent { get; set; }
+        public virtual CommentReplyMaster CommentReplyMasterParent { get; set; }
     }
 
     #endregion
 
-    public class Customer
-    {
-        [Key]
-        public int CustomerAddressID { get; set; }
-        public string Address { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
-    }
 
     public class UserImageStore
     {
@@ -213,6 +262,7 @@ namespace OpenLabour.Models
         public string ProfilePic { get; set; }
         public bool Active { get; set; }
 
+        public string UserID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 
@@ -222,10 +272,11 @@ namespace OpenLabour.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public DbSet<Customer> Customer { get; set; }
         public DbSet<UserImageStore> UserImageStore { get; set; }
         public DbSet<EventMaster> EventMaster { get; set; }
 
+        public DbSet<AssetType> AssetType { get; set; }
+        public DbSet<UserAssets> UserAssets { get; set; }
 
         #region  country and areas
         public DbSet<Country> Country { get; set; }
@@ -240,36 +291,44 @@ namespace OpenLabour.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            #region User Assets
+            modelBuilder.Entity<UserAssets>()
+                .HasRequired(x => x.AssetType)
+                .WithMany()
+                .HasForeignKey(x => x.AssetID);
+            #endregion
+
+
             #region country and areas
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.Area)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
+                .WithMany()
+                .HasForeignKey(x => x.AreaID);
 
             modelBuilder.Entity<EventMaster>()
                .HasOptional(x => x.City)
-               .WithRequired(x => x.EventMaster)
-               .Map(x => x.MapKey("EventID"));
+               .WithMany()
+               .HasForeignKey(x => x.CityID);
 
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.Country)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
+                .WithMany()
+                .HasForeignKey(x => x.CountryID);
 
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.LocalPlace)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
+                .WithMany()
+                .HasForeignKey(x => x.LocalPlaceID);
 
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.PostOffice)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
+                .WithMany()
+                .HasForeignKey(x => x.PostOfficeID);
 
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.State)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
+                .WithMany()
+                .HasForeignKey(x => x.StateID);
 
             #endregion
 
@@ -277,43 +336,47 @@ namespace OpenLabour.Models
             #region Event
 
             modelBuilder.Entity<EventMaster>()
-                .HasOptional(e => e.Parent)
+                .HasOptional(e => e.EventMasterParent)
                 .WithMany()
                 .HasForeignKey(m => m.ParentID);
 
 
-            modelBuilder.Entity<EventMaster>()
-                .HasOptional(x => x.Area)
-                .WithRequired(x => x.EventMaster)
-                .Map(x => x.MapKey("EventID"));
-
-
             modelBuilder.Entity<CommentMaster>()
-                .HasOptional(e => e.EventMaster)
+                .HasRequired(e => e.EventMaster)
                 .WithMany()
                 .HasForeignKey(m => m.EventID);
 
             modelBuilder.Entity<CommentMaster>()
                 .HasRequired(e => e.ApplicationUser)
                 .WithMany()
-                .HasForeignKey(m => m.CommentedBy);
+                .HasForeignKey(m => m.CommentedByID);
 
+
+            //modelBuilder.Entity<EventMaster>()
+            //  .HasOptional(m => m.Category)
+            //  .WithMany()
+            //  .HasForeignKey(x=>x.EventID);
 
             modelBuilder.Entity<EventMaster>()
-              .HasOptional(m => m.Category)
-              .WithRequired(x => x.EventMaster)
-              .Map(p => p.MapKey("EventID"));
+                .HasOptional(m => m.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(x => x.CreatedByUserID);
 
 
             modelBuilder.Entity<CommentReplyMaster>()
-                .HasOptional(m => m.Parent)
+                .HasOptional(m => m.CommentReplyMasterParent)
                 .WithMany()
                 .HasForeignKey(x => x.ParentID);
 
             modelBuilder.Entity<CommentReplyMaster>()
                 .HasRequired(m => m.ApplicationUser)
                 .WithMany()
-                .HasForeignKey(x => x.CommentedBy);
+                .HasForeignKey(x => x.CommentedByID);
+
+            modelBuilder.Entity<UserImageStore>()
+                .HasOptional(m => m.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(x => x.UserID);
 
             #endregion
 
@@ -324,25 +387,12 @@ namespace OpenLabour.Models
 
             // one - to - zero or one relationship between ApplicationUser and Customer
             //  UserId column in Customers table will be foreign key
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOptional(m => m.Customer)
-                .WithRequired(m => m.ApplicationUser)
-                .Map(p => p.MapKey("UserId"));
 
-            modelBuilder.Entity<ApplicationUser>().
-                HasOptional(m => m.UserImageStore).
-                WithRequired(m => m.ApplicationUser).
-                Map(p => p.MapKey("UserID"));
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOptional(m => m.EventMaster)
-                .WithRequired(x => x.CreatedByUser)
-                .Map(p => p.MapKey("UserID"));
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOptional(x => x.Category)
-                .WithRequired(x => x.CreatedByUser)
-                .Map(m => m.MapKey("UserID"));
+            modelBuilder.Entity<Category>()
+                .HasOptional(x => x.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(x => x.CreatedByUserID);
         }
 
         public static ApplicationDbContext Create()

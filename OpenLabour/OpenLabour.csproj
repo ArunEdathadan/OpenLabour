@@ -77,7 +77,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Npgsql, Version=3.1.8.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.8\lib\net451\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -203,43 +212,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610201617237_1.cs" />
+    <Compile Include="Migrations\201610201617237_1.Designer.cs">
+      <DependentUpon>201610201617237_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610201640509_2.cs" />
+    <Compile Include="Migrations\201610201640509_2.Designer.cs">
+      <DependentUpon>201610201640509_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\ContextA\201610151819362_1.cs" />
-    <Compile Include="Migrations\ContextA\201610151819362_1.Designer.cs">
-      <DependentUpon>201610151819362_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610151828192_2.cs" />
-    <Compile Include="Migrations\ContextA\201610151828192_2.Designer.cs">
-      <DependentUpon>201610151828192_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610161157241_3.cs" />
-    <Compile Include="Migrations\ContextA\201610161157241_3.Designer.cs">
-      <DependentUpon>201610161157241_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610161346262_5.cs" />
-    <Compile Include="Migrations\ContextA\201610161346262_5.Designer.cs">
-      <DependentUpon>201610161346262_5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610161725545_6.cs" />
-    <Compile Include="Migrations\ContextA\201610161725545_6.Designer.cs">
-      <DependentUpon>201610161725545_6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610161755418_7.cs" />
-    <Compile Include="Migrations\ContextA\201610161755418_7.Designer.cs">
-      <DependentUpon>201610161755418_7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610181745379_8.cs" />
-    <Compile Include="Migrations\ContextA\201610181745379_8.Designer.cs">
-      <DependentUpon>201610181745379_8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610181831338_9.cs" />
-    <Compile Include="Migrations\ContextA\201610181831338_9.Designer.cs">
-      <DependentUpon>201610181831338_9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ContextA\201610181841052_10.cs" />
-    <Compile Include="Migrations\ContextA\201610181841052_10.Designer.cs">
-      <DependentUpon>201610181841052_10.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -331,32 +312,11 @@
     <Folder Include="Scripts\app\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\ContextA\201610151819362_1.resx">
-      <DependentUpon>201610151819362_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610201617237_1.resx">
+      <DependentUpon>201610201617237_1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610151828192_2.resx">
-      <DependentUpon>201610151828192_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610161157241_3.resx">
-      <DependentUpon>201610161157241_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610161346262_5.resx">
-      <DependentUpon>201610161346262_5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610161725545_6.resx">
-      <DependentUpon>201610161725545_6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610161755418_7.resx">
-      <DependentUpon>201610161755418_7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610181745379_8.resx">
-      <DependentUpon>201610181745379_8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610181831338_9.resx">
-      <DependentUpon>201610181831338_9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\ContextA\201610181841052_10.resx">
-      <DependentUpon>201610181841052_10.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610201640509_2.resx">
+      <DependentUpon>201610201640509_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
