@@ -12,7 +12,6 @@ namespace OpenLabour.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -25,9 +24,6 @@ namespace OpenLabour.Models
         /// self referencing for multiple password for same account
         /// </summary>
         public int? ParentUserID { get; set; }
-
-
-
     }
 
     #region Assets (User)
@@ -55,6 +51,65 @@ namespace OpenLabour.Models
         public string AssectType { get; set; }
     }
 
+    public class UserImages
+    {
+        [Key]
+        public int UserImageID { get; set; }
+        public string ImageUrl { get; set; }
+        public string ImageDesc { get; set; }
+        public bool? IsActive { get; set; }
+
+        public string UserID { get; set; }
+        public virtual ApplicationUser ApplicationUserParent { get; set; }
+    }
+    #endregion
+
+    #region Job
+    public class JobEngagement
+    {
+        [Key]
+        public int JobEngID { get; set; }
+        public string JobDescription { get; set; }
+
+        public int ConfirationCount { get; set; }
+        public string JobTitle { get; set; }
+        public string JobDetails { get; set; }
+
+        public int OrgID { get; set; }
+        public virtual OrgInstitutionCompany OrgInstitutionCompanyParent { get; set; }
+
+        public string UserID { get; set; }
+        public virtual ApplicationUser ApplicationUserParent { get; set; }
+    }
+
+    public class JobType
+    {
+        [Key]
+        public int JobTypeID { get; set; }
+        public string JobTitle { get; set; }
+
+        public int? JobParentID { get; set; }
+        public virtual JobType JobTypeParent { get; set; }
+    }
+    #endregion
+
+    #region Subscriptions
+    public class SubsriptionToUser
+    {
+        [Key]
+        public int UserSubsriptionID { get; set; }
+        public string Description { get; set; }
+
+        public string SubscribedByUserID { get; set; }
+        public virtual ApplicationUser ApplicationUserParent { get; set; }
+
+        public string SubscribedOnUserID { get; set; }
+
+
+        public bool? Active { get; set; }
+        public DateTime SubscribedDate { get; set; }
+
+    }
     #endregion
 
 
@@ -70,6 +125,30 @@ namespace OpenLabour.Models
         public string IdentificationNumber { get; set; }
         public string IdentificationType { get; set; }
         public bool IsActive { get; set; }
+        public string GoogleMaps { get; set; }
+        public bool? IsVerfied { get; set; }
+        public string OwnerID { get; set; }
+        public bool? IsBranch { get; set; }
+
+        public int? ParentID { get; set; }
+        public virtual OrgInstitutionCompany OrgInstitutionCompanyParent { get; set; }
+    }
+
+    public class OrganisationAssets
+    {
+        [Key]
+        public int UserAssetID { get; set; }
+        public string AssetTitle { get; set; }
+        public string AssetDetails { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public string VehicleNumber { get; set; }
+        public string InstitutionNumber { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public int AssetID { get; set; }
+        public virtual AssetType AssetType { get; set; }
     }
     #endregion
 
@@ -140,7 +219,7 @@ namespace OpenLabour.Models
 
     public class Address
     {
-       public City c { get; set; }
+        public City c { get; set; }
 
     }
 
@@ -273,6 +352,7 @@ namespace OpenLabour.Models
         {
         }
         public DbSet<UserImageStore> UserImageStore { get; set; }
+        public DbSet<UserImages> UserImages { get; set; }
         public DbSet<EventMaster> EventMaster { get; set; }
 
         public DbSet<AssetType> AssetType { get; set; }
@@ -287,6 +367,17 @@ namespace OpenLabour.Models
         public DbSet<LocalPlace> LocalPlace { get; set; }
         #endregion
 
+        public DbSet<CommentReplyMaster> CommentReplyMaster { get; set; }
+        public DbSet<CommentMaster> CommentMaster { get; set; }
+        public DbSet<Category> Category { get; set; }
+
+        public DbSet<OrganisationAssets> OrganisationAssets { get; set; }
+        public DbSet<OrgInstitutionCompany> OrgInstitutionCompany { get; set; }
+
+        public DbSet<SubsriptionToUser> SubsriptionToUser { get; set; }
+        public DbSet<JobType> JobType { get; set; }
+        public DbSet<JobEngagement> JobEngagement { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -296,8 +387,46 @@ namespace OpenLabour.Models
                 .HasRequired(x => x.AssetType)
                 .WithMany()
                 .HasForeignKey(x => x.AssetID);
+
+            modelBuilder.Entity<UserImages>()
+                .HasRequired(x => x.ApplicationUserParent)
+                .WithMany()
+                .HasForeignKey(x => x.UserID);
             #endregion
 
+            #region Job
+            modelBuilder.Entity<JobEngagement>()
+                .HasRequired(x => x.OrgInstitutionCompanyParent)
+                .WithMany()
+                .HasForeignKey(x => x.OrgID);
+
+            modelBuilder.Entity<JobEngagement>()
+                .HasRequired(x => x.ApplicationUserParent)
+                .WithMany()
+                .HasForeignKey(x => x.UserID);
+
+            modelBuilder.Entity<JobType>()
+                .HasOptional(x => x.JobTypeParent)
+                .WithMany()
+                .HasForeignKey(x => x.JobParentID);
+            #endregion
+
+            modelBuilder.Entity<OrgInstitutionCompany>()
+                .HasOptional(x => x.OrgInstitutionCompanyParent)
+                .WithMany()
+                .HasForeignKey(x => x.ParentID);
+
+            #region Subsription     
+            modelBuilder.Entity<SubsriptionToUser>()
+                .HasRequired(x => x.ApplicationUserParent)
+                .WithMany()
+                .HasForeignKey(x => x.SubscribedByUserID);
+
+            modelBuilder.Entity<SubsriptionToUser>()
+                .HasRequired(x => x.ApplicationUserParent)
+                .WithMany()
+                .HasForeignKey(x => x.SubscribedOnUserID);
+            #endregion
 
             #region country and areas
             modelBuilder.Entity<EventMaster>()
@@ -383,10 +512,6 @@ namespace OpenLabour.Models
             #region Identity User
 
             #endregion
-
-
-            // one - to - zero or one relationship between ApplicationUser and Customer
-            //  UserId column in Customers table will be foreign key
 
 
             modelBuilder.Entity<Category>()
