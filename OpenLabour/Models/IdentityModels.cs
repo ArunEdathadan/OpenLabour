@@ -162,14 +162,16 @@ namespace OpenLabour.Models
         public string Description { get; set; }
     }
 
-    public class State
-    {
-        [Key]
-        public int StateID { get; set; }
-        public string SateName { get; set; }
-        public string Description { get; set; }
-        public bool? Active { get; set; }
+   public class State
+   {
+      [Key]
+      public int StateID { get; set; }
+      public string SateName { get; set; }
+      public string Description { get; set; }
+      public bool? Active { get; set; }
 
+      public int CountryID{get;set;}
+      public virtual Country Country { get; set; }
         //   public virtual ApplicationUser CreatedByUser { get; set; }
     }
 
@@ -426,9 +428,14 @@ namespace OpenLabour.Models
                 .HasRequired(x => x.ApplicationUserParent)
                 .WithMany()
                 .HasForeignKey(x => x.SubscribedOnUserID);
-            #endregion
+         #endregion
 
-            #region country and areas
+         #region country and areas
+         modelBuilder.Entity<State>()
+            .HasRequired(x => x.Country)
+            .WithMany()
+            .HasForeignKey(x => x.CountryID);
+
             modelBuilder.Entity<EventMaster>()
                 .HasOptional(x => x.Area)
                 .WithMany()
