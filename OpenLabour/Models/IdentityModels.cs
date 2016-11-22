@@ -108,6 +108,9 @@ namespace OpenLabour.Models
       public string JobTitle { get; set; }
       public string JobDetails { get; set; }
 
+      public int? JobTypeID { get; set; }
+      public virtual JobType JobType { get; set; }
+
       public int OrgID { get; set; }
       public virtual Organisation OrganisationParent { get; set; }
 
@@ -459,10 +462,10 @@ namespace OpenLabour.Models
              .WithMany()
              .HasForeignKey(x => x.UserID);
 
-         //modelBuilder.Entity<UserAssetVerfications>()
-         //   .HasRequired(x => x.ApplicationUser)
-         //   .WithMany()
-         //   .HasForeignKey(x => x.VerifiedByUserID);
+         modelBuilder.Entity<UserAssetVerfications>()
+            .HasOptional(x => x.ApplicationUser)
+            .WithMany()
+            .HasForeignKey(x => x.VerifiedByUserID);
 
          modelBuilder.Entity<UserAssetVerfications>()
             .HasRequired(x => x.UserAssetsParent)
@@ -492,6 +495,12 @@ namespace OpenLabour.Models
              .HasOptional(x => x.JobTypeParent)
              .WithMany()
              .HasForeignKey(x => x.JobParentID);
+
+         modelBuilder.Entity<JobEngagement>()
+            .HasOptional(x => x.JobType)
+            .WithMany()
+            .HasForeignKey(x => x.JobTypeID);
+
          #endregion
 
          #region Organisation and assets
