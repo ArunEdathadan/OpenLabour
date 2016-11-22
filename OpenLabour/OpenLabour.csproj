@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -214,49 +216,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610201617237_1.cs" />
-    <Compile Include="Migrations\201610201617237_1.Designer.cs">
-      <DependentUpon>201610201617237_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610201640509_2.cs" />
-    <Compile Include="Migrations\201610201640509_2.Designer.cs">
-      <DependentUpon>201610201640509_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610261632116_3.cs" />
-    <Compile Include="Migrations\201610261632116_3.Designer.cs">
-      <DependentUpon>201610261632116_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610271708140_4.cs" />
-    <Compile Include="Migrations\201610271708140_4.Designer.cs">
-      <DependentUpon>201610271708140_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610271721304_5.cs" />
-    <Compile Include="Migrations\201610271721304_5.Designer.cs">
-      <DependentUpon>201610271721304_5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610271746171_6.cs" />
-    <Compile Include="Migrations\201610271746171_6.Designer.cs">
-      <DependentUpon>201610271746171_6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610271751488_7.cs" />
-    <Compile Include="Migrations\201610271751488_7.Designer.cs">
-      <DependentUpon>201610271751488_7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610271753282_8.cs" />
-    <Compile Include="Migrations\201610271753282_8.Designer.cs">
-      <DependentUpon>201610271753282_8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281521214_9.cs" />
-    <Compile Include="Migrations\201610281521214_9.Designer.cs">
-      <DependentUpon>201610281521214_9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611061344512_10.cs" />
-    <Compile Include="Migrations\201611061344512_10.Designer.cs">
-      <DependentUpon>201611061344512_10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611061351453_11.cs" />
-    <Compile Include="Migrations\201611061351453_11.Designer.cs">
-      <DependentUpon>201611061351453_11.cs</DependentUpon>
+    <Compile Include="Migrations\201611221538066_1.cs" />
+    <Compile Include="Migrations\201611221538066_1.Designer.cs">
+      <DependentUpon>201611221538066_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -354,45 +316,19 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\" />
-    <Folder Include="Scripts\app\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610201617237_1.resx">
-      <DependentUpon>201610201617237_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610201640509_2.resx">
-      <DependentUpon>201610201640509_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610261632116_3.resx">
-      <DependentUpon>201610261632116_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610271708140_4.resx">
-      <DependentUpon>201610271708140_4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610271721304_5.resx">
-      <DependentUpon>201610271721304_5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610271746171_6.resx">
-      <DependentUpon>201610271746171_6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610271751488_7.resx">
-      <DependentUpon>201610271751488_7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610271753282_8.resx">
-      <DependentUpon>201610271753282_8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281521214_9.resx">
-      <DependentUpon>201610281521214_9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611061344512_10.resx">
-      <DependentUpon>201611061344512_10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611061351453_11.resx">
-      <DependentUpon>201611061351453_11.cs</DependentUpon>
+    <TypeScriptCompile Include="Scripts\app\file1.ts" />
+    <TypeScriptCompile Include="Scripts\app\file2.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611221538066_1.resx">
+      <DependentUpon>201611221538066_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -400,6 +336,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
