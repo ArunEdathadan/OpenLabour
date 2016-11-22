@@ -99,7 +99,7 @@ namespace OpenLabour.Models
 
    #region Job
    public class JobEngagement
-   {
+   {    
       [Key]
       public int JobEngID { get; set; }
       public string JobDescription { get; set; }
@@ -107,6 +107,8 @@ namespace OpenLabour.Models
       public int ConfirationCount { get; set; }
       public string JobTitle { get; set; }
       public string JobDetails { get; set; }
+
+      public bool IsCurrentJob { get; set; }
 
       public int? JobTypeID { get; set; }
       public virtual JobType JobType { get; set; }
