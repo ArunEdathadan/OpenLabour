@@ -44,8 +44,29 @@ namespace OpenLabour.Models
       public virtual AssetType AssetType { get; set; }
    }
 
+   public class UserContacts
+   {
+      [Key]
+      public int ContactID { get; set; }
+      public string ContactInfo { get; set; }
 
-   public class UserAssetVerfications
+      public int ContactTypeID { get; set; }
+      public virtual ContactType ContactType { get; set; }
+
+      public string UserID { get; set; }
+      public virtual ApplicationUser ApplicationUser { get; set; }
+   }
+
+   public class ContactType
+   {
+      [Key]
+      public int ContactTypeID { get; set; }
+      public string ContactTypeName { get; set; }
+      public string Decription { get; set; }
+      public string ValidationRules { get; set; }
+   }
+
+   public class UserAssetVerifications
    {
       [Key]
       public int UserAssetVerifyID { get; set; }
@@ -65,9 +86,10 @@ namespace OpenLabour.Models
       public int UserAssetVerificationSupportDocID { get; set; }
       public string FileUrl { get; set; }
       public string Description { get; set; }
+      public bool IsTrue { get; set; }
 
       public int UserAssetVerificationID { get; set; }
-      public virtual UserAssetVerfications UserAssetVerficationsParent { get; set; }
+      public virtual UserAssetVerifications UserAssetVerficationsParent { get; set; }
    }
 
    public class AssetType
@@ -76,6 +98,7 @@ namespace OpenLabour.Models
       public int AssetID { get; set; }
       public string AssectTypeName { get; set; }
 
+      public bool IsActive { get; set; }
       public string CreatedByUserID { get; set; }
       public virtual ApplicationUser ApplicationUser { get; set; }
    }
@@ -94,12 +117,11 @@ namespace OpenLabour.Models
       public virtual ApplicationUser ApplicationUser { get; set; }
    }
 
-
    #endregion
 
    #region Job
    public class JobEngagement
-   {    
+   {
       [Key]
       public int JobEngID { get; set; }
       public string JobDescription { get; set; }
@@ -164,6 +186,7 @@ namespace OpenLabour.Models
 
       public bool? Active { get; set; }
       public DateTime SubscribedDate { get; set; }
+
    }
    #endregion
 
@@ -208,6 +231,25 @@ namespace OpenLabour.Models
       public int AssetID { get; set; }
       public virtual AssetType AssetType { get; set; }
    }
+
+   public class OrganisationImages
+   {
+      [Key]
+      public int OrgImageID { get; set; }
+      public string ImageThumpNailUrl { get; set; }
+      public string ImageLargeUrl { get; set; }
+      public string ImageDesc { get; set; }
+      public bool? IsActive { get; set; }
+      public DateTime UploadedDate { get; set; }
+
+      public int OrganisationID { get; set; }
+      public virtual Organisation Organisation { get; set; }
+
+      public string UploadedByUser { get; set; }
+      public virtual ApplicationUser ApplicationUser { get; set; }
+   }
+
+
    #endregion
 
 
@@ -464,12 +506,12 @@ namespace OpenLabour.Models
              .WithMany()
              .HasForeignKey(x => x.UserID);
 
-         modelBuilder.Entity<UserAssetVerfications>()
+         modelBuilder.Entity<UserAssetVerifications>()
             .HasOptional(x => x.ApplicationUser)
             .WithMany()
             .HasForeignKey(x => x.VerifiedByUserID);
 
-         modelBuilder.Entity<UserAssetVerfications>()
+         modelBuilder.Entity<UserAssetVerifications>()
             .HasRequired(x => x.UserAssetsParent)
             .WithMany()
             .HasForeignKey(x => x.UserAssetsID);
@@ -479,7 +521,15 @@ namespace OpenLabour.Models
             .WithMany()
             .HasForeignKey(x => x.UserAssetVerificationID);
 
+         modelBuilder.Entity<UserContacts>()
+            .HasRequired(x => x.ContactType)
+            .WithMany()
+            .HasForeignKey(x => x.ContactTypeID);
 
+         modelBuilder.Entity<UserContacts>()
+            .HasRequired(x => x.ApplicationUser)
+            .WithMany()
+            .HasForeignKey(x => x.UserID);
          #endregion
 
          #region Job
@@ -520,6 +570,17 @@ namespace OpenLabour.Models
             .HasRequired(x => x.AssetType)
             .WithMany()
             .HasForeignKey(x => x.AssetID);
+
+         modelBuilder.Entity<OrganisationImages>()
+            .HasRequired(x => x.ApplicationUser)
+            .WithMany()
+            .HasForeignKey(x => x.UploadedByUser);
+
+         modelBuilder.Entity<OrganisationImages>()
+            .HasRequired(x => x.Organisation)
+            .WithMany()
+            .HasForeignKey(x => x.OrganisationID);
+
 
          #endregion
 
