@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StatesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +245,38 @@
     <Compile Include="Migrations\201611241721258_7.Designer.cs">
       <DependentUpon>201611241721258_7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611260357122_8.cs" />
+    <Compile Include="Migrations\201611260357122_8.Designer.cs">
+      <DependentUpon>201611260357122_8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611260418040_9.cs" />
+    <Compile Include="Migrations\201611260418040_9.Designer.cs">
+      <DependentUpon>201611260418040_9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611260522575_10.cs" />
+    <Compile Include="Migrations\201611260522575_10.Designer.cs">
+      <DependentUpon>201611260522575_10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611260532595_11.cs" />
+    <Compile Include="Migrations\201611260532595_11.Designer.cs">
+      <DependentUpon>201611260532595_11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611261010318_12.cs" />
+    <Compile Include="Migrations\201611261010318_12.Designer.cs">
+      <DependentUpon>201611261010318_12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611261022510_13.cs" />
+    <Compile Include="Migrations\201611261022510_13.Designer.cs">
+      <DependentUpon>201611261022510_13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611261106072_14.cs" />
+    <Compile Include="Migrations\201611261106072_14.Designer.cs">
+      <DependentUpon>201611261106072_14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611261625254_15.cs" />
+    <Compile Include="Migrations\201611261625254_15.Designer.cs">
+      <DependentUpon>201611261625254_15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -259,10 +292,12 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\UserProfile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\user7-128x128.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -271,6 +306,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -327,6 +363,7 @@
     <Content Include="Views\States\Details.cshtml" />
     <Content Include="Views\States\Edit.cshtml" />
     <Content Include="Views\States\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -371,6 +408,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611241721258_7.resx">
       <DependentUpon>201611241721258_7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611260357122_8.resx">
+      <DependentUpon>201611260357122_8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611260418040_9.resx">
+      <DependentUpon>201611260418040_9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611260522575_10.resx">
+      <DependentUpon>201611260522575_10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611260532595_11.resx">
+      <DependentUpon>201611260532595_11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611261010318_12.resx">
+      <DependentUpon>201611261010318_12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611261022510_13.resx">
+      <DependentUpon>201611261022510_13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611261106072_14.resx">
+      <DependentUpon>201611261106072_14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611261625254_15.resx">
+      <DependentUpon>201611261625254_15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

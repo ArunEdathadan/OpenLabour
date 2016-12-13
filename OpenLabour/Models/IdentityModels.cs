@@ -24,6 +24,10 @@ namespace OpenLabour.Models
       /// self referencing for multiple password for same account
       /// </summary>
       public int? ParentUserID { get; set; }
+
+      public bool IsAgent { get; set; }
+      public bool IsEmployee { get; set; }
+      public bool IsOwner { get; set; }
    }
 
    #region Assets (User)
@@ -43,6 +47,37 @@ namespace OpenLabour.Models
       public int AssetTypeID { get; set; }
       public virtual AssetType AssetType { get; set; }
    }
+   
+   public class AssetType
+   {
+      [Key]
+      public int AssetID { get; set; }
+      public string AssectTypeName { get; set; }
+
+      public bool IsActive { get; set; }
+      public string CreatedByUserID { get; set; }
+      public virtual ApplicationUser ApplicationUser { get; set; }
+   }
+
+   public class UserAssetVerifications : VerificationInherit
+   {
+      [Key]
+      public int UserAssetVerifyID { get; set; }
+
+      public int UserAssetsID { get; set; }
+      public virtual UserAssets UserAssetsParent { get; set; }
+   }
+
+   public class UserAssetVerificationDocuments : VerificationDocumentsInherit
+   {
+      [Key]
+      public int UserAssetVerificationSupportDocID { get; set; }
+
+      public int UserAssetVerificationID { get; set; }
+      public virtual UserAssetVerifications UserAssetVerficationsParent { get; set; }
+   }
+
+
 
    public class UserContacts
    {
@@ -66,43 +101,54 @@ namespace OpenLabour.Models
       public string ValidationRules { get; set; }
    }
 
-   public class UserAssetVerifications
+   public class UserContactVerifications : VerificationInherit
    {
       [Key]
-      public int UserAssetVerifyID { get; set; }
-      public string Description { get; set; }
-      public DateTime VerficationDate { get; set; }
+      public int UserContactVerifyID { get; set; }
 
-      public int UserAssetsID { get; set; }
-      public virtual UserAssets UserAssetsParent { get; set; }
+      public int UserContactID { get; set; }
+      public virtual UserContacts UserContact { get; set; }
+   }
 
-      public string VerifiedByUserID { get; set; }
+   public class UserContactVerificationDocuments : VerificationDocumentsInherit
+   {
+      [Key]
+      public int UserContactVerificationSupportDocID { get; set; }
+
+      public int UserContactVerificationID { get; set; }
+      public virtual UserContactVerifications UserContactVerfications { get; set; }
+   }
+
+
+
+   public class UserVehicle : VehicleInherit
+   {
+      [Key]
+      public int VehicleID { get; set; }
+
+      public string OwnerID { get; set; }
       public virtual ApplicationUser ApplicationUser { get; set; }
    }
 
-   public class UserAssetVerificationDocuments
+   public class UserVehicleVerifications : VerificationInherit
    {
       [Key]
-      public int UserAssetVerificationSupportDocID { get; set; }
-      public string FileUrl { get; set; }
-      public string Description { get; set; }
-      public bool IsTrue { get; set; }
+      public int UserVehicleVerificationID { get; set; }
 
-      public int UserAssetVerificationID { get; set; }
-      public virtual UserAssetVerifications UserAssetVerficationsParent { get; set; }
+      public int UserVehicleID { get; set; }
+      public virtual UserVehicle UserVehicle { get; set; }
    }
 
-   public class AssetType
+   public class UserVechicleVerificationDocuments : VerificationDocumentsInherit
    {
       [Key]
-      public int AssetID { get; set; }
-      public string AssectTypeName { get; set; }
+      public int UserVehicleVerificationSupportDocID { get; set; }
 
-      public bool IsActive { get; set; }
-      public string CreatedByUserID { get; set; }
-      public virtual ApplicationUser ApplicationUser { get; set; }
+      public int UserVehicleVerificationID { get; set; }
+      public virtual UserVehicleVerifications UserVehicleVerifications { get; set; }
    }
-
+   
+   
    public class UserImages
    {
       [Key]
@@ -116,6 +162,35 @@ namespace OpenLabour.Models
       public string UserID { get; set; }
       public virtual ApplicationUser ApplicationUser { get; set; }
    }
+
+   public class UserImageVerifications : VerificationInherit
+   {
+      [Key]
+      public int UserImageVerificationID { get; set; }
+
+      public int UserImagesID { get; set; }
+      public virtual UserImages UserImages { get; set; }
+   }
+
+   public class UserImageVerificationDocuments : VerificationDocumentsInherit
+   {
+      [Key]
+      public int UserImageVerificationSupportDocID { get; set; }
+
+      public int UserImageVerificationID { get; set; }
+      public virtual UserImageVerifications UserImageVerifications { get; set; }
+   }
+
+   public class UserContributionMoney
+   {
+      [Key]
+      public int UserContributionMoneyID { get; set; }
+      public decimal Amount { get; set; }
+
+      public string UserID { get; set; }
+      public virtual ApplicationUser ApplicationUser { get; set; }
+   }
+
 
    #endregion
 
@@ -131,6 +206,7 @@ namespace OpenLabour.Models
       public string JobDetails { get; set; }
 
       public bool IsCurrentJob { get; set; }
+
 
       public int? JobTypeID { get; set; }
       public virtual JobType JobType { get; set; }
@@ -189,7 +265,6 @@ namespace OpenLabour.Models
 
    }
    #endregion
-
 
    #region Organisation , Institutions or Companies
    public class Organisation
@@ -251,8 +326,7 @@ namespace OpenLabour.Models
 
 
    #endregion
-
-
+   
    #region country and areas
    public class Country
    {
@@ -319,15 +393,53 @@ namespace OpenLabour.Models
       //  public virtual ApplicationUser CreatedByUser { get; set; }
    }
 
-   public class Address
+   public class AddressInherit
    {
-      public City c { get; set; }
+      public int CountryID { get; set; }
+      public virtual Country Country { get; set; }
 
+      public int StateID { get; set; }
+      public virtual State State { get; set; }
+
+      public int? CityID { get; set; }
+      public virtual City City { get; set; }
+
+      public int? AreaID { get; set; }
+      public virtual Area Area { get; set; }
+
+      public int? PostOfficeID { get; set; }
+      public virtual PostOffice PostOffice { get; set; }
+
+      public int? LocalPlaceID { get; set; }
+      public virtual LocalPlace LocalPlace { get; set; }
+   }
+
+   public class AddressTable
+   {
+      [Key]
+      public int AddressID { get; set; }
+
+      public int CountryID { get; set; }
+      public virtual Country Country { get; set; }
+
+      public int StateID { get; set; }
+      public virtual State State { get; set; }
+
+      public int CityID { get; set; }
+      public virtual City City { get; set; }
+
+      public int PostOfficeID { get; set; }
+      public virtual PostOffice PostOffice { get; set; }
+
+      public int AreaID { get; set; }
+      public virtual Area Area { get; set; }
+
+      public int LocalPlaceID { get; set; }
+      public virtual LocalPlace LocalPlace { get; set; }
    }
 
    #endregion
-
-
+   
    #region Category
    public class Category
    {
@@ -345,7 +457,7 @@ namespace OpenLabour.Models
 
    #region Event
 
-   public class EventMaster
+   public class EventMaster : AddressInherit
    {
       [Key]
       public int EventID { get; set; }
@@ -374,25 +486,6 @@ namespace OpenLabour.Models
 
       public int? CategoryID { get; set; }
       public virtual Category Category { get; set; }
-
-      public int? CityID { get; set; }
-      public virtual City City { get; set; }
-
-      public int? StateID { get; set; }
-      public virtual State State { get; set; }
-
-      public int? CountryID { get; set; }
-      public virtual Country Country { get; set; }
-
-      public int? AreaID { get; set; }
-      public virtual Area Area { get; set; }
-
-      public int? PostOfficeID { get; set; }
-      public virtual PostOffice PostOffice { get; set; }
-
-      public int? LocalPlaceID { get; set; }
-      public virtual LocalPlace LocalPlace { get; set; }
-
    }
 
    public class CommentMaster
@@ -433,6 +526,47 @@ namespace OpenLabour.Models
 
    #endregion
 
+   #region Common or Inheritance
+   public class VerificationInherit
+   {
+      public string Description { get; set; }
+      public DateTime VerficationDate { get; set; }
+
+
+      public string VerifiedByUserID { get; set; }
+      public virtual ApplicationUser ApplicationUser { get; set; }
+   }
+
+   public class VerificationDocumentsInherit
+   {
+      public string FileUrl { get; set; }
+      public string Description { get; set; }
+      public bool IsTrue { get; set; }
+   }
+
+
+   public class VehicleInherit
+   {
+      public string Name { get; set; }
+      public string NumberPlate { get; set; }
+      public string Model { get; set; }
+      public string Color { get; set; }
+      public string ChasisNumber { get; set; }
+      public string EngineNumber { get; set; }
+
+      public int VehicleTypeID { get; set; }
+      public VehicleType VehicleType { get; set; }
+   }
+
+   public class VehicleType
+   {
+      [Key]
+      public int VehicleTypeID { get; set; }
+      public string TypeName { get; set; }
+      public string Description { get; set; }
+
+   }
+   #endregion
 
    public class UserImageStore
    {
@@ -453,6 +587,10 @@ namespace OpenLabour.Models
           : base("DefaultConnection", throwIfV1Schema: false)
       {
       }
+
+      #region Common
+      public DbSet<VehicleType> VehicleType { get; set; }
+      #endregion
 
       #region UserAssets
       public DbSet<UserImageStore> UserImageStore { get; set; }
@@ -530,6 +668,43 @@ namespace OpenLabour.Models
             .HasRequired(x => x.ApplicationUser)
             .WithMany()
             .HasForeignKey(x => x.UserID);
+
+         modelBuilder.Entity<UserContactVerifications>()
+            .HasRequired(x => x.UserContact)
+            .WithMany()
+            .HasForeignKey(x => x.UserContactID);
+
+         modelBuilder.Entity<UserContactVerificationDocuments>()
+            .HasRequired(x => x.UserContactVerfications)
+            .WithMany()
+            .HasForeignKey(x => x.UserContactVerificationID);
+
+         modelBuilder.Entity<UserVehicleVerifications>()
+            .HasRequired(x => x.UserVehicle)
+            .WithMany()
+            .HasForeignKey(x => x.UserVehicleID);
+
+         modelBuilder.Entity<UserVechicleVerificationDocuments>()
+            .HasRequired(x => x.UserVehicleVerifications)
+            .WithMany()
+            .HasForeignKey(x => x.UserVehicleVerificationID);
+
+         modelBuilder.Entity<UserImageVerifications>()
+            .HasRequired(x => x.UserImages)
+            .WithMany()
+            .HasForeignKey(x => x.UserImagesID);
+
+         modelBuilder.Entity<UserImageVerificationDocuments>()
+            .HasRequired(x => x.UserImageVerifications)
+            .WithMany()
+            .HasForeignKey(x => x.UserImageVerificationID);
+
+         modelBuilder.Entity<UserContributionMoney>()
+            .HasRequired(x => x.ApplicationUser)
+            .WithMany()
+            .HasForeignKey(x => x.UserID);
+
+
          #endregion
 
          #region Job
