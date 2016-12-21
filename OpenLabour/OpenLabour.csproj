@@ -277,6 +277,26 @@
     <Compile Include="Migrations\201611261625254_15.Designer.cs">
       <DependentUpon>201611261625254_15.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612141602134_16.cs" />
+    <Compile Include="Migrations\201612141602134_16.Designer.cs">
+      <DependentUpon>201612141602134_16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612141648228_17.cs" />
+    <Compile Include="Migrations\201612141648228_17.Designer.cs">
+      <DependentUpon>201612141648228_17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612211619230_18.cs" />
+    <Compile Include="Migrations\201612211619230_18.Designer.cs">
+      <DependentUpon>201612211619230_18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612211626539_19.cs" />
+    <Compile Include="Migrations\201612211626539_19.Designer.cs">
+      <DependentUpon>201612211626539_19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612211637025_qualityRatingVerification.cs" />
+    <Compile Include="Migrations\201612211637025_qualityRatingVerification.Designer.cs">
+      <DependentUpon>201612211637025_qualityRatingVerification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -432,6 +452,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611261625254_15.resx">
       <DependentUpon>201611261625254_15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141602134_16.resx">
+      <DependentUpon>201612141602134_16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141648228_17.resx">
+      <DependentUpon>201612141648228_17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211619230_18.resx">
+      <DependentUpon>201612211619230_18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211626539_19.resx">
+      <DependentUpon>201612211626539_19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211637025_qualityRatingVerification.resx">
+      <DependentUpon>201612211637025_qualityRatingVerification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
